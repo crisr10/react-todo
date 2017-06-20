@@ -1,6 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import TodoList from 'TodoList';
+import AddTodo from 'AddTodo';
 
 const TodoApp = createReactClass({
 	getInitialState: function () {
@@ -22,12 +23,16 @@ const TodoApp = createReactClass({
 			]
 		};
 	},
+	handleAddTodo: function(text) {
+		alert('new todo: ' + text);
+	},
 	render: function () {
 		var {todos} = this.state;
 
 		return (
 			<div>
 				<TodoList todos={todos}/>
+				<AddTodo onAddTodo={this.handleAddTodo}/>
 			</div>
 		)
 	}
