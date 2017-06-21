@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class';
 import TodoList from 'TodoList';
 import AddTodo from 'AddTodo';
 import TodoSearch from 'TodoSearch';
+import uuid from 'node-uuid';
 
 const TodoApp = createReactClass({
 	getInitialState: function () {
@@ -11,23 +12,29 @@ const TodoApp = createReactClass({
 			searchText: '',
 			todos: [
 				{
-					id: 1,
+					id: uuid(),
 					text: 'Walk the dog'
 				}, {
-					id: 2,
+					id: uuid(),
 					text: 'Clean the yard'
 				}, {
-					id: 3,
+					id: uuid(),
 					text: 'Study React'
 				}, {
-					id: 4,
+					id: uuid(),
 					text: 'Visit my gf'
 				}
 			]
 		};
 	},
 	handleAddTodo: function(text) {
-		alert('new todo: ' + text);
+		this.setState({
+			todos: [
+			...this.state.todos, {
+				id: uuid(),
+				text: text
+			}]
+		})
 	},
 	handleSearch: function (showCompleted, searchText) {
 		this.setState({
