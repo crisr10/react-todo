@@ -30,13 +30,10 @@ describe('TodoApp', () => {
 		var todoApp = TestUtils.renderIntoDocument(<TodoApp/>);
 		todoApp.setState({todos: [todoData]});
 
-		// check that todos first item has completed value of false
-		// call handleToggle with 11
-		// verify that value changed
-
 		expect(todoApp.state.todos[0].completed).toBe(false);
-
 		todoApp.handleToggle(11);
 		expect(todoApp.state.todos[0].completed).toBe(true);
+
+
 	});
 });

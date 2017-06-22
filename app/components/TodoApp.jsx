@@ -1,38 +1,22 @@
 import React from 'react';
+import uuid from 'node-uuid';
 import createReactClass from 'create-react-class';
+
 import TodoList from 'TodoList';
 import AddTodo from 'AddTodo';
 import TodoSearch from 'TodoSearch';
-import uuid from 'node-uuid';
+import TodoAPI from 'TodoAPI';
 
 const TodoApp = createReactClass({
 	getInitialState: function () {
 		return {
 			showCompleted: false,
 			searchText: '',
-			todos: [
-				{
-					id: uuid(),
-					text: 'Walk the dog',
-					completed: false
-				}, {
-					id: uuid(),
-					text: 'Clean the yard',
-					completed: true
-
-				}, {
-					id: uuid(),
-					text: 'Study React',
-					completed: true
-
-				}, {
-					id: uuid(),
-					text: 'Visit my gf',
-					completed: false
-
-				}
-			]
+			todos: TodoAPI.getTodos()
 		};
+	},
+	componentDidUpdate() {
+		TodoAPI.setTodos(this.state.todos);
 	},
 	handleToggle(id) {
 		var updatedTodos = this.state.todos.map((todo) => {
