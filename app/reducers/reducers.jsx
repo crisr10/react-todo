@@ -1,3 +1,6 @@
+var uuid = require('node-uuid');
+var moment = require('moment');
+
 export var searchTextReducer = (state = '', action) => {
 	switch (action.type) {
 		case 'SET_SEARCH_TEXT':
@@ -15,3 +18,36 @@ export var showCompletedReducer = (state = false, action) => {
 			return state;
 	}
 }
+
+export var todosReducer = (state = [], action) => {
+	switch (action.type) {
+		case 'ADD_TODO':
+		 return [
+		 	...state,
+		 	{
+		 		id: uuid(),
+		 		text: action.text,
+		 		completed: false,
+		 		createdAt: moment().unix(),
+		 		completedAt: undefined
+		 	}
+		 ];
+		 // add case for TOGGLE_TODO completed equal to opposite value & updateCompletedAt
+		case 'TOGGLE_TODO':
+			return state.map((todo) => {
+				if(action.id === todo.id) {
+					var nextCompleted = !todo.completed;
+
+					return {
+						...todo,
+						completed: nextCompleted,
+						completedAt: nextCompleted ? moment().unix() : undefined
+					}
+				}
+			})
+		default:
+			return state;
+	};
+};
+
+// we want to check if the id of the todo matches anything in the todos array (state array), if something matches, then change the completed status to the opposite of whatever the initial value is and also update the created at to the date this change happened

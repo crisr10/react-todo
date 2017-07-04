@@ -25,4 +25,4 @@ export var toggleTodo = (id) => {
 		type:'TOGGLE_TODO',
 		id
 	};
-} ;
+};

@@ -23,7 +23,8 @@ const TodoApp = createReactClass({
 		this.setState({
 			todos: [
 			// js spread operator
-			...this.state.todos, {
+			...this.state.todos,
+			{
 				id: uuid(),
 				text: text,
 				completed: false,
