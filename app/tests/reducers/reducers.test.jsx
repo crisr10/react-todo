@@ -1,11 +1,11 @@
-import expect from 'expect';
-
+var expect = require('expect');
 var df = require('deep-freeze-strict');
+
 var reducers = require('reducers');
 
 describe('Reducers', () => {
 	describe('searchTextReducer', () => {
-		it('should set searchText', () => {
+		it('should set search text', () => {
 			var action = {
 				type: 'SET_SEARCH_TEXT',
 				searchText: 'dog'
@@ -16,10 +16,10 @@ describe('Reducers', () => {
 		});
 	});
 
-	describe('showToggleReducer', () => {
-		it('should change completed status', () => {
+	describe('showCompletedReducer', () => {
+		it('should toggle showCompleted', () => {
 			var action = {
-				type: 'TOGGLE_SHOW_COMPLETED',
+				type: 'TOGGLE_SHOW_COMPLETED'
 			};
 			var res = reducers.showCompletedReducer(df(false), df(action));
 
@@ -40,27 +40,23 @@ describe('Reducers', () => {
 		});
 
 		it('should toggle todo', () => {
-			var todos = [{
-				id: '1',
-				text: 'Something todo',
-				completed: true,
-				createdAt: 123,
-				completedAt: 125
-			}];
-
+			var todos = [
+				{
+					id: '13',
+					text: 'something',
+					completed: true,
+					createdAt: 123,
+					completedAt: 125,
+				}
+			]
 			var action = {
 				type: 'TOGGLE_TODO',
-				id: '1'
+				id: '13'
 			};
-
 			var res = reducers.todosReducer(df(todos), df(action));
 
 			expect(res[0].completed).toEqual(false);
 			expect(res[0].completedAt).toEqual(undefined);
 		});
 	});
-
-	// define todos array with realistic todo item
-	// generate action
-	// call reducer and assert completed flipped
 });
