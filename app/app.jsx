@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+var {Route, Router, IndexRoute, hashHistory} = require('react-router');
+
 import TodoApp from 'TodoApp';
 
-var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 var actions = require('actions');
 var store = require('configureStore').configure();
 
