@@ -4,7 +4,7 @@ import expect from 'expect';
 import $ from 'jQuery';
 import TestUtils from 'react-addons-test-utils';
 
-import AddTodo from 'AddTodo';
+var {AddTodo} = require('AddTodo');
 
 describe('AddTodo', () => {
 	it('should exist', () => {
@@ -12,25 +12,29 @@ describe('AddTodo', () => {
 	});
 
 	// Make sure the spi gets called when valid text in entered
-	it('should call onAddTodo if valid text entered', () => {
+	it('should dispatch ADD_TODO when valid todo text', () => {
 
 		var todoText = 'Finish React tutorial';
+		var action = {
+			type: 'ADD_TODO',
+			text: todoText
+		}
 		var spy = expect.createSpy();
-		var addTodo = TestUtils.renderIntoDocument(<AddTodo onAddTodo={spy}/>);
+		var addTodo = TestUtils.renderIntoDocument(<AddTodo dispatch={spy}/>);
 		var $el = $(ReactDOM.findDOMNode(addTodo));
 
 		addTodo.refs.todoText.value = todoText;
 		// We are passing the jQuery selector that has the form element, we want to pul out the actual DOM node without jQuery which is the first element
 		TestUtils.Simulate.submit($el.find('form')[0]);
 
-		expect(spy).toHaveBeenCalledWith(todoText);
+		expect(spy).toHaveBeenCalledWith(action);
 	});
 
-	it('should not call onAddTodo if invalid text entered', () => {
+	it('should not dispatch ADD_TODO when invalid todo text', () => {
 
 		var todoText = ''
 		var spy = expect.createSpy();
-		var addTodo = TestUtils.renderIntoDocument(<AddTodo onAddTodo={spy}/>);
+		var addTodo = TestUtils.renderIntoDocument(<AddTodo dispatch={spy}/>);
 		var $el = $(ReactDOM.findDOMNode(addTodo));
 
 		addTodo.refs.todoText.value = todoText;
