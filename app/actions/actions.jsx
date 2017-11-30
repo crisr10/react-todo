@@ -8,17 +8,16 @@ export var setSearchText = (searchText) => {
 	};
 };
 
+export var toggleShowCompleted = () => {
+	return {
+		type: 'TOGGLE_SHOW_COMPLETED'
+	};
+};
+
 export var addTodo = (todo) => {
 	return {
 		type: 'ADD_TODO',
 		todo
-	};
-};
-
-export var addTodos = (todos) => {
-	return {
-		type: 'ADD_TODOS',
-		todos
 	};
 };
 
@@ -41,9 +40,31 @@ export var startAddTodo = (text) => {
 	};
 };
 
-export var toggleShowCompleted = () => {
+export var addTodos = (todos) => {
 	return {
-		type: 'TOGGLE_SHOW_COMPLETED'
+		type: 'ADD_TODOS',
+		todos
+	};
+};
+
+export var startAddTodos = () => {
+	return (dispatch, getState) => {
+		var todosRef = firebaseRef.child('todos');
+
+		return todosRef.once('value').then((snapshot) => {
+			var todos = snapshot.val() || {};
+			var parsedTodos =[];
+
+			// For each item in the ids array, trigger a function that adds each id to each one of the todos
+			Object.keys(todos).forEach((todoId) => {
+				parsedTodos.push({
+					id: todoId,
+					...todos[todoId]
+				});
+			});
+
+			dispatch(addTodos(parsedTodos));
+		});
 	};
 };
 

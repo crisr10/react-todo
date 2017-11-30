@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+var firebase = require('firebase');
 
 var config = {
   apiKey: "AIzaSyDbDlzyK4-lW-tAmL7XMK4CpgsX2JsAOs4",
@@ -35,20 +35,28 @@ firebaseRef.set({
 // });
 // console.log('Todo id', newNoteRef.key);
 
+// var todosRef = firebaseRef.child('todos');
+
+// todosRef.on('child_added', (snapshot) => {
+// 	console.log('New todo added', snapshot.key, snapshot.val());
+// });
+
+// todosRef.push({
+// 	text: 'Keep studying React'
+// });
+// console.log('Todo id', newTodoRef.key);
+
+// todosRef.push({
+// 	text: 'Start the React Native and Redux course'
+// });
+// console.log('Todo id', newTodoRef.key);
+
 var todosRef = firebaseRef.child('todos');
 
-todosRef.on('child_added', (snapshot) => {
-	console.log('New todo added', snapshot.key, snapshot.val());
-});
-
-todosRef.push({
-	text: 'Keep studying React'
-});
-console.log('Todo id', newTodoRef.key);
-
-todosRef.push({
-	text: 'Start the React Native and Redux course'
-});
-console.log('Todo id', newTodoRef.key);
+todosRef.on('value', (data) => {
+	console.log('FIREBASE DATA: ', data);
+}).then(err) => {
+	console.log('ERROR: ', err);
+};
 
 
