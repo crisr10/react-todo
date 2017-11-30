@@ -16,3 +16,4 @@ try {
 
 export var firebaseRef = firebase.database().ref();
 export default firebase;
+
